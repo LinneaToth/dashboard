@@ -1,16 +1,17 @@
 const weatherContainer = document.getElementById("weather");
 
 function getLocation() {
+    const coords = [];
+
     function success(position) {
         const lat = position.coords.latitude;
         const long = position.coords.longitude;
-        const coords = [lat, long];
+        coords = [lat, long];
 
         console.log("Latitude: " + position.coords.latitude +
             "<br>Longitude: " + position.coords.longitude)
         weatherContainer.innerHTML = "Latitude: " + position.coords.latitude +
             "<br>Longitude: " + position.coords.longitude;
-
     }
 
     function error() {
@@ -19,6 +20,7 @@ function getLocation() {
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
+        return coords;
 
     } else {
         console.log("Geolocation is not supported by this browser.");
