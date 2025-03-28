@@ -9,3 +9,5 @@ playwright/.cache/
 target/
 .debug
 .vscode
+
+script/config.js

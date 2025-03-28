@@ -7,8 +7,9 @@
 
 :root {
     --see-through-white: #ffffff4d;
-    --gap-width: 2rem;
+    --gap-width: 1rem;
     --border-radius: 0.7rem;
+    --shadow-color: #700b0b33;
 }
 
 html {
@@ -39,14 +40,18 @@ body {
     color: white;
     display: flex;
     flex: row;
+    gap: var(--gap-width);
     align-items: center;
     justify-content: center;
     grid-area: time;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: var(--gap-width);
     backdrop-filter: blur(10px);
     background-color: var(--see-through-white);
     border-radius: var(--border-radius);
     width: 250px;
-    height: 2rem;
+    height: 1.75rem;
 }
 
 
@@ -58,6 +63,10 @@ header {
     align-self: end;
     grid-area: header;
     font-size: 2rem;
+
+    & h1 {
+        filter: drop-shadow(2px 2px 3px var(--shadow-color));
+    }
 }
 
 section {
@@ -83,6 +92,36 @@ section {
 
 #weather {
     grid-area: weather;
+
+    & article {
+        width: 100%;
+        margin-bottom: var(--gap-width);
+
+        display: grid;
+        grid-template-areas:
+            "a b b"
+            "a c d";
+        grid-template-columns: 75px 1fr 1fr;
+
+        & .weather-text {
+            grid-area: c;
+            text-align: left;
+        }
+
+        & img {
+            margin: auto;
+            grid-area: a;
+        }
+
+        & .tempmax {
+            grid-area: d;
+            text-align: left;
+        }
+
+        & h3 {
+            text-align: left;
+        }
+    }
 }
 
 #jokes-section {
@@ -102,7 +141,10 @@ section {
     }
 }
 
-
+.icon {
+    width: 40px;
+    height: 40px;
+}
 
 footer {
     grid-area: footer;

@@ -12,12 +12,10 @@ const dateTime = function () {
     time = time.toTimeString();
     time = time.slice(0, time.lastIndexOf(":"))
 
-    console.log(date, time)
-
     dateElement.innerText = date;
     timeElement.innerText = time;
 
-    setTimeout(dateTime, 60000);
+    setTimeout(dateTime, 1000);
 }
 
 
