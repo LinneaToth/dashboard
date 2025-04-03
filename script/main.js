@@ -1,5 +1,5 @@
 import { changeBackground } from "./background.js";
-import { weatherItems } from "./weather.js";
+import { WeatherMaker } from "./weather.js";
 import { dateTime } from "./timedate.js";
 import { addLink, getAllStoredLinks } from "./links.js";
 import { RandomFactDeliverer } from "./randomFact.js";
@@ -63,7 +63,9 @@ themedBgBtn.addEventListener("click", () => {
 })
 
 //Weather
-weatherItems();
+const weatherMaker = new WeatherMaker("https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=weather_code,temperature_2m_max&timezone=Europe%2FBerlin&forecast_days=3");
+weatherMaker.init();
+
 
 //Random fact
 const randomiser = new RandomFactDeliverer("https://uselessfacts.jsph.pl/api/v2/facts/random");
