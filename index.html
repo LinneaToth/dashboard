@@ -16,7 +16,7 @@
         <div id="date">12/3</div>
     </aside>
     <header>
-        <h1>John Doe Dashboard</h1>
+        <input type="text" default="John Doe Dashboard" id="name-text" maxlength="30">
     </header>
 
     <section id="quick-links">
@@ -37,15 +37,22 @@
             <button>rm</button>
         </article>
         <button><i>Icon</i> Add link</button>
+        <aside id="links-modal" class="hidden">
+            <form id="links-form" action="javascript:void(0);">
+                <input type="text" name="link-name" id="link-name" placeholder="Name of Link">
+                <input type="text" name="link-url" id="link-url" placeholder="Link URL">
+                <button id="add-link-button">+</button>
+            </form>
     </section>
 
     <section id="weather">
 
     </section>
 
-    <section id="jokes-section">
-        <h2>Jokes</h2>
-        <p>Joke goes here. Ha. Ha. Ha.</p>
+    <section id="facts-section">
+        <h2>Random facts</h2>
+        <p id="fact">fact goes here</p>
+        <button id="change-fact-button">New fact!</button>
     </section>
 
     <section id="notes-section">
@@ -53,17 +60,12 @@
         <textarea id="notepad"></textarea>
     </section>
     <footer>
-        <input type="text" placeholder="Maybe unicorns?">
-        <button>Themed background</button>
-        <button>Random background</button>
+        <input type="text" placeholder="Maybe unicorns?" name="themed-bg-input" id="themed-bg-input">
+        <button id="themed-bg-btn">Search (key needed)</button>
+        <button id="random-bg-btn">Random background</button>
     </footer>
 
-    <aside id="links-modal" class="hidden">
-        <form id="links-form" action="javascript:void(0);">
-            <input type="text" name="link-name" id="link-name" placeholder="Name of Link">
-            <input type="text" name="link-url" id="link-url" placeholder="Link URL">
-            <button id="add-link-button">ADD LINK</button>
-        </form>
+
     </aside>
 </body>
 

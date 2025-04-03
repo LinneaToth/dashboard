@@ -1,5 +1,6 @@
 "use strict"
 
+
 function addLink(linkName = "No name", linkUrl = "URL missing") {
     if (getAllStoredLinks().length < 6) {
         console.log("link is being added.. wait for it")
@@ -34,7 +35,6 @@ function getAllStoredLinks() {
     const allStoredItems = { ...localStorage }; //puts everything from local storage in an object
     const allKeys = Object.keys(allStoredItems); //Returns an array with all of local storage keys
     const storedLinks = allKeys.filter(onlyLinks);
-
 
     function onlyLinks(key) {
         return key.includes("link");

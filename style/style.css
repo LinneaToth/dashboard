@@ -9,7 +9,7 @@
     --see-through-white: #ffffff4d;
     --gap-width: 1rem;
     --border-radius: 0.7rem;
-    --shadow-color: #700b0b33;
+    --shadow-color: #00000049;
 }
 
 html {
@@ -18,14 +18,13 @@ html {
 }
 
 body {
-    background-image: url("../img/bg.jpg");
     background-size: cover;
     height: 100vh;
     display: grid;
     grid-template-areas:
         "time   time    time    time    time    time"
         "header header  header  header  header  header"
-        ". links weather jokes notes ."
+        ". links weather facts notes ."
         "footer footer footer footer footer footer";
     grid-template-rows: 3fr 1fr 5fr 4fr;
     grid-template-columns: 1fr 3fr 3fr 3fr 3fr 1fr;
@@ -58,21 +57,29 @@ body {
 
 header {
     width: 100vw;
-    color: white;
     text-align: center;
     align-self: end;
     grid-area: header;
-    font-size: 2rem;
 
-    & h1 {
-        filter: drop-shadow(2px 2px 3px var(--shadow-color));
+    #name-text {
+        color: white;
+        width: 100%;
+        text-align: center;
+        align-self: end;
+        grid-area: header;
+        font-size: 3rem;
+        background: none;
+        outline: none;
+        border: none;
+        text-shadow: 1px 1px 1px var(--shadow-color);
+        font-weight: bold;
     }
 }
 
 section {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     padding: var(--gap-width);
     height: 50vh;
@@ -82,6 +89,7 @@ section {
     border-radius: var(--border-radius);
 
     & h2 {
+        padding-top: 1rem;
         margin-bottom: var(--gap-width);
     }
 }
@@ -96,6 +104,10 @@ section {
     & article {
         width: 100%;
         margin-bottom: var(--gap-width);
+        height: 20%;
+        background-color: var(--see-through-white);
+        border-radius: var(--border-radius);
+        padding: 1rem;
 
         display: grid;
         grid-template-areas:
@@ -121,11 +133,29 @@ section {
         & h3 {
             text-align: left;
         }
+
+
+    }
+
+    & button {
+        display: inline-block;
+        width: 5rem;
+        height: 2rem;
+        color: black;
     }
 }
 
-#jokes-section {
-    grid-area: jokes;
+#facts-section {
+    grid-area: facts;
+    padding-left: 3rem;
+    padding-right: 3rem;
+
+    & p {
+        line-height: 1.5;
+        font-style: italic;
+        text-align: center;
+        word-break: break-word;
+    }
 }
 
 #notes-section {

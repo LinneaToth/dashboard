@@ -1,5 +1,6 @@
 "use strict"
 
+//Legend mapping what the weather codes actually means. They are also assigned a suitable icon. 
 const iconsLegend = new Map([
     [0, { img: "clear.png", desc: "clear" }],
     [1, { img: "partly.png", desc: "mostly clear" }],
@@ -32,7 +33,7 @@ const iconsLegend = new Map([
 ]);
 
 
-
+//What weekday is it any number of days from now? 
 const weekdayName = function (displacement = 0) {
     const date = new Date();
     const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -42,6 +43,7 @@ const weekdayName = function (displacement = 0) {
     return weekday;
 }
 
+//Where are we? 
 async function getLocation() {
     return new Promise((resolve, reject) => {
 
@@ -54,11 +56,12 @@ async function getLocation() {
             (position) => {
                 const lat = position.coords.latitude;
                 const long = position.coords.longitude;
-                resolve([lat, long]); // Returns coordinates
+                resolve([lat, long]); // Returns coordinates in an array
             });
     })
 }
 
+//Function getting weather data from Open-Meteo
 async function getWeather() {
     const coordinates = await getLocation();
     const [lat, long] = coordinates;
@@ -70,6 +73,7 @@ async function getWeather() {
     return weatherData;
 }
 
+//This function doesn't return anything. It does, however, build the weather section in the DOM. 
 async function weatherItems() {
     const weatherContainer = document.getElementById("weather");
     const h2 = document.createElement("h2");
@@ -77,7 +81,7 @@ async function weatherItems() {
     weatherContainer.appendChild(h2);
     const weatherData = await getWeather();
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) { //We only need three days. 
 
         const weatherCode = weatherData.daily.weather_code[i];
         const tempMax = document.createElement("p");
@@ -112,10 +116,15 @@ async function weatherItems() {
 
     }
 
-    const changeLocation = document.createElement("button");
-    changeLocation.innerText = "Change location";
-    changeLocation.id = "location-btn"
-    weatherContainer.appendChild(changeLocation);
+    const changeLocationBtn = document.createElement("button");
+    changeLocationBtn.innerText = "Change location";
+    changeLocationBtn.id = "change-location-btn";
+
+    const currentLocationBtn = document.createElement("button");
+    currentLocationBtn.innerText = "Current location";
+    currentLocationBtn.id = "current-location-btn";
+
+    weatherContainer.append(changeLocationBtn, currentLocationBtn);
 
 }
 
