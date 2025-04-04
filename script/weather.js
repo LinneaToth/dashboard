@@ -54,7 +54,7 @@ export class WeatherMaker {
         return weekday;
     }
 
-    async getLocation() {
+    async getCurrentLocation() {
         return new Promise((resolve, reject) => {
 
             if (!navigator.geolocation) {
@@ -73,7 +73,7 @@ export class WeatherMaker {
 
     async getWeather() {
         if (this.currentLocation === true) {
-            const coordinates = await this.getLocation();
+            const coordinates = await this.getCurrentLocation();
             [this.lat, this.long] = coordinates;
             console.log("from getweather()", coordinates, this.lat, this.long);
         }
@@ -156,6 +156,9 @@ export class WeatherMaker {
         console.log(searchResult);
 
         const select = document.createElement("select");
+        const option = document.createElement("option");
+        option.innerText = `Select location`;
+        select.appendChild(option);
 
         for (let location of searchResult) {
             const option = document.createElement("option");
