@@ -153,6 +153,7 @@ export class WeatherMaker extends Section {
     }
 
     async changeLocation(input) {
+        this.otherLocation = input;
         const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${input}&count=10&language=en&format=json`)
         let searchResult = await response.json();
         searchResult = searchResult.results;
@@ -170,7 +171,6 @@ export class WeatherMaker extends Section {
             const option = document.createElement("option");
             option.value = location.id;
             option.innerText = `${location.name}, ${location.country}`;
-            this.otherLocation = location.name;
             select.appendChild(option);
             console.log(`${location.name}, ${location.country}`)
         }
