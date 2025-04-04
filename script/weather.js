@@ -126,29 +126,29 @@ export class WeatherMaker extends Section {
             this.weatherContainer.appendChild(article);
         }
 
+        this.locationContainer = this.buildElement("aside", null, "location-container");
+        this.currentLocationBtn = this.buildElement("button", "Here", "current-location-btn");
 
-        const currentLocationBtn = document.createElement("button");
-        currentLocationBtn.innerText = "Current location";
-        currentLocationBtn.id = "current-location-btn";
 
-        currentLocationBtn.addEventListener("click", () => {
+        this.currentLocationBtn.addEventListener("click", () => {
             this.currentLocation = true;
             this.weatherDOM();
         });
 
-        this.changeLocationBtn = document.createElement("button");
-        this.changeLocationBtn.innerText = "Search";
-        this.changeLocationBtn.id = "change-location-btn";
+
+        this.changeLocationBtn = this.buildElement("button", "Search", "change-location-btn");
 
         this.changeLocationBtn.addEventListener("click", () => {
             let value = this.newLocationInput.value;
             this.changeLocation(value);
         });
 
-        this.newLocationInput = document.createElement("input");
+        this.newLocationInput = this.buildElement("input")
         this.newLocationInput.type = "text";
+        this.newLocationInput.placeholder = "Name of city"
 
-        this.weatherContainer.append(currentLocationBtn, this.newLocationInput, this.changeLocationBtn);
+        this.locationContainer.append(this.currentLocationBtn, this.newLocationInput, this.changeLocationBtn)
+        this.weatherContainer.append(this.locationContainer);
     }
 
     async changeLocation(input) {
@@ -184,7 +184,7 @@ export class WeatherMaker extends Section {
             this.weatherDOM();
         })
 
-        this.weatherContainer.appendChild(select);
+        this.locationContainer.appendChild(select);
         select.active();
 
     }

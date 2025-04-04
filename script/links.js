@@ -5,6 +5,7 @@ import { Section } from "./sectionClass.js"
 export class Linker extends Section {
     constructor() {
         super();
+        this.links = [];
         this.container = document.querySelector("#quick-links");
     }
 
@@ -19,16 +20,17 @@ export class Linker extends Section {
 
     checkForStoredLinks() {
         let storedLinks = localStorage.getItem("links");
-        let parsedStoredLinks = JSON.parse(storedLinks) || {};
+        let parsedStoredLinks = JSON.parse(storedLinks) || [];
 
-        if (Object.keys(parsedStoredLinks).length > 0) {
+        if (parsedStoredLinks.length > 0) {
             this.links = parsedStoredLinks;
         } else {
-            this.links = {
-                "link1": { linkName: "Placehold", linkUrl: "https://placehold.co/", faviconURL: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://placehold.co/&size=128" }
-            }
+            // this.links = [
+            //     { linkName: "Placehold", linkUrl: "https://placehold.co/", faviconURL: "https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://placehold.co/&size=128" }]
+            console.log("There are no links to add")
         }
     }
+
 
     clearLocalStorageLinks() {
         localStorage.removeItem("links");
@@ -36,7 +38,7 @@ export class Linker extends Section {
 
     getAmtLinks() {
         this.checkForStoredLinks();
-        const amt = Object.keys(this.links).length;
+        const amt = this.links.length;
         if (amt >= 0) {
             return Number(amt || 0);
         } else {
@@ -45,9 +47,6 @@ export class Linker extends Section {
     }
 
     saveLinksToLocalStorage() {
-        console.log("savelinkstolocalstorage, here's what I've got of links: ", this.links);
-        console.log("savelinkstolocalstorage, here they are stringified: ", JSON.stringify(this.links));
-
         localStorage.setItem("links", JSON.stringify(this.links));
     }
 
@@ -60,7 +59,13 @@ export class Linker extends Section {
                 console.log(domain);
             }
 
-            let faviconURL = `https://www.google.com/s2/favicons?domain=https://${domain}&sz=128`
+
+            if (domain.lastIndexOf("http://") != -1) {
+                domain = domain.slice(domain.lastIndexOf("http://") + 7);
+                console.log(domain);
+            }
+
+            let faviconURL = `https://www.google.com/s2/favicons?domain=https://${domain}&sz=40`
             return faviconURL;
 
         } else {
@@ -69,24 +74,19 @@ export class Linker extends Section {
     }
 
     addLink(linkNameInput = "No name", linkUrlInput = "URL missing") {
-        const amtLinks = this.getAmtLinks();
 
-        if (amtLinks < 5) {
-            let index = amtLinks + 1;
-            let linkIndex = "link" + index;
-            console.log("link is being added.. wait for it");
-            console.log(amtLinks, linkUrlInput, linkNameInput);
+        if (this.links.length < 4) {
             const favIconURL = this.getFaviconURL(linkUrlInput);
             console.log(favIconURL);
-            this.links[linkIndex] = { "linkName": linkNameInput, "linkUrl": linkUrlInput, "faviconURL": favIconURL };
+            this.links.push({ "linkName": linkNameInput, "linkUrl": linkUrlInput, "faviconURL": favIconURL });
             console.log(this.links);
             this.saveLinksToLocalStorage();
         } else {
-            alert("Cannot store more links!");
+            alert("Maximum amount of stored links has been reached");
         }
     }
 
-    linkCardBuilder(linkObj, path) {
+    linkCardBuilder(linkObj, index) {
         const article = this.buildElement("article");
         const favicon = this.buildElement("img", null, null, "favicon");
         favicon.src = linkObj.faviconURL;
@@ -99,13 +99,9 @@ export class Linker extends Section {
 
         removeLinkBtn.addEventListener("click", () => {
             article.remove();
-            console.log(this.links);
-            delete this.links[path];
+            this.links.splice(index, 1);
             this.saveLinksToLocalStorage();
-            console.log(this.links);
         })
-
-
 
         article.append(favicon, anchorTag, removeLinkBtn);
         return article;
@@ -117,21 +113,22 @@ export class Linker extends Section {
         this.container.append(heading);
         console.log("dom builder says hello")
 
-        for (let i = 1; i <= this.getAmtLinks(); i++) {
-            let path = "link" + i;
-            const card = this.linkCardBuilder(this.links[path], path);
+        for (let i = 0; i < this.links.length; i++) {
+            const card = this.linkCardBuilder(this.links[i], i);
             this.container.append(card);
         }
 
-        const addLinkInputName = this.buildElement("input");
+        const addContainer = this.buildElement("aside", null, "add-links-container");
+        const addLinkInputName = this.buildElement("input", null, "input-link-name");
         addLinkInputName.type = "text";
         addLinkInputName.placeholder = "Site name";
-        const addLinkInputUrl = this.buildElement("input");
+        const addLinkInputUrl = this.buildElement("input", null, "input-link-url");
         addLinkInputUrl.type = "text";
         addLinkInputUrl.placeholder = "Link to site";
         const addLinkInputButton = this.buildElement("button", "Add Link", "link-input-btn");
 
-        this.container.append(addLinkInputName, addLinkInputUrl, addLinkInputButton);
+        addContainer.append(addLinkInputName, addLinkInputUrl, addLinkInputButton);
+        this.container.append(addContainer);
 
         addLinkInputButton.addEventListener("click", () => {
             const name = addLinkInputName.value;
@@ -142,7 +139,6 @@ export class Linker extends Section {
 
     }
 }
-
 
 
 // function addLink(linkName = "No name", linkUrl = "URL missing") {
