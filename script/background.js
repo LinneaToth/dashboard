@@ -1,5 +1,9 @@
 "use strict"
 
+export class backgroundChanger {
+
+}
+
 const checkKey = async function (url) {
 
 }

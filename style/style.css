@@ -6,7 +6,7 @@
 }
 
 :root {
-    --see-through-white: #ffffff4d;
+    --see-through-white: #ffffff79;
     --gap-width: 1rem;
     --border-radius: 0.7rem;
     --shadow-color: #00000049;
@@ -182,4 +182,8 @@ footer {
     text-align: center;
     margin-top: auto;
     padding-bottom: var(--gap-width);
+}
+
+.hidden {
+    display: none !important;
 }

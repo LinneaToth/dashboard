@@ -1,13 +1,16 @@
+import { Section } from "./sectionClass.js";
 
-export class RandomFactDeliverer {
+"use strict"
+export class RandomFactDeliverer extends Section {
     constructor(url) {
-        this.url = url;
+        super();
         this.factText = document.querySelector("#fact");
         this.fact = "Prepare for useless education!";
         this.changeBtn = document.querySelector("#change-fact-button");
     }
 
-    async init() {
+    async init(url) {
+        this.url = url;
         await this.randomFactAdder();
         this.changeBtn.addEventListener("click", this.randomFactAdder.bind(this)) //Binding the listener to the object context
     }

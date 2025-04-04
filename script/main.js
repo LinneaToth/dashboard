@@ -1,7 +1,7 @@
 import { changeBackground } from "./background.js";
 import { WeatherMaker } from "./weather.js";
 import { dateTime } from "./timedate.js";
-import { addLink, getAllStoredLinks } from "./links.js";
+import { Linker } from "./links.js";
 import { RandomFactDeliverer } from "./randomFact.js";
 
 "use strict"
@@ -29,18 +29,22 @@ notes.addEventListener("input", () => {
 dateTime();
 
 //Link functionality
-const addLinkBtn = document.querySelector("#add-link-button");
-const addLinkForm = document.querySelector("#links-form");
 
-addLinkBtn.addEventListener("click", () => {
-    const linkName = document.querySelector("#link-name").value;
-    const linkURL = document.querySelector("#link-url");
+const links = new Linker();
+links.init();
 
-    addLink(linkName, linkURL);
+// const addLinkBtn = document.querySelector("#add-link-button");
+// const addLinkForm = document.querySelector("#links-form");
 
-    getAllStoredLinks();
-    console.log({ ...localStorage })
-})
+// addLinkBtn.addEventListener("click", () => {
+//     const linkName = document.querySelector("#link-name").value;
+//     const linkURL = document.querySelector("#link-url");
+
+//     addLink(linkName, linkURL);
+
+//     getAllStoredLinks();
+//     console.log({ ...localStorage })
+// })
 
 //linkItems();
 
@@ -63,10 +67,10 @@ themedBgBtn.addEventListener("click", () => {
 })
 
 //Weather
-const weatherMaker = new WeatherMaker("https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=weather_code,temperature_2m_max&timezone=Europe%2FBerlin&forecast_days=3");
-weatherMaker.init();
+const weatherMaker = new WeatherMaker();
+weatherMaker.init("https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=weather_code,temperature_2m_max&timezone=Europe%2FBerlin&forecast_days=3");
 
 
 //Random fact
-const randomiser = new RandomFactDeliverer("https://uselessfacts.jsph.pl/api/v2/facts/random");
-randomiser.init();
+const randomiser = new RandomFactDeliverer();
+randomiser.init("https://uselessfacts.jsph.pl/api/v2/facts/random");

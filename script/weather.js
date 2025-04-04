@@ -1,9 +1,11 @@
+import { Section } from "./sectionClass.js";
+
 "use strict"
 
-export class WeatherMaker {
+export class WeatherMaker extends Section {
 
-    constructor(url) {
-        this.url = url;
+    constructor() {
+        super();
         this.iconsLegend = new Map([
             [0, { img: "clear.png", desc: "clear" }],
             [1, { img: "partly.png", desc: "mostly clear" }],
@@ -38,10 +40,12 @@ export class WeatherMaker {
         this.long;
         this.currentLocation = true;
         this.otherLocation;
+        this.searchVisible = true;
         this.weatherContainer = document.getElementById("weather");
     }
 
-    init() {
+    init(url) {
+        this.url = url;
         this.weatherDOM();
     }
 
@@ -85,8 +89,7 @@ export class WeatherMaker {
 
     async weatherDOM() {
         this.weatherContainer.innerHTML = "";
-        const h2 = document.createElement("h2");
-        h2.innerText = "Weather Forecast";
+        const h2 = this.buildElement("h2", "Weather Forecast");
         this.weatherContainer.appendChild(h2);
 
         const weatherData = await this.getWeather();
@@ -121,7 +124,6 @@ export class WeatherMaker {
 
             article.append(weather, day, tempMax, weatherTxt)
             this.weatherContainer.appendChild(article);
-            console.log(article);
         }
 
 
@@ -134,19 +136,19 @@ export class WeatherMaker {
             this.weatherDOM();
         });
 
-        const changeLocationBtn = document.createElement("button");
-        changeLocationBtn.innerText = "Search";
-        changeLocationBtn.id = "change-location-btn";
+        this.changeLocationBtn = document.createElement("button");
+        this.changeLocationBtn.innerText = "Search";
+        this.changeLocationBtn.id = "change-location-btn";
 
-        changeLocationBtn.addEventListener("click", () => {
-            let value = newLocationInput.value;
+        this.changeLocationBtn.addEventListener("click", () => {
+            let value = this.newLocationInput.value;
             this.changeLocation(value);
         });
 
-        const newLocationInput = document.createElement("input");
-        newLocationInput.type = "text";
+        this.newLocationInput = document.createElement("input");
+        this.newLocationInput.type = "text";
 
-        this.weatherContainer.append(currentLocationBtn, newLocationInput, changeLocationBtn);
+        this.weatherContainer.append(currentLocationBtn, this.newLocationInput, this.changeLocationBtn);
     }
 
     async changeLocation(input) {
@@ -157,8 +159,11 @@ export class WeatherMaker {
 
         const select = document.createElement("select");
         const option = document.createElement("option");
-        option.innerText = `Select location`;
+        option.innerText = `Search results for ${input}:`;
         select.appendChild(option);
+
+        this.toggleDisplay(this.newLocationInput);
+        this.toggleDisplay(this.changeLocationBtn);
 
         for (let location of searchResult) {
             const option = document.createElement("option");
@@ -167,6 +172,7 @@ export class WeatherMaker {
             select.appendChild(option);
             console.log(`${location.name}, ${location.country}`)
         }
+
 
         select.addEventListener("change", () => {
             let id = select.value;
@@ -179,5 +185,7 @@ export class WeatherMaker {
         })
 
         this.weatherContainer.appendChild(select);
+        select.active();
+
     }
 }
