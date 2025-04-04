@@ -89,7 +89,8 @@ export class WeatherMaker extends Section {
 
     async weatherDOM() {
         this.weatherContainer.innerHTML = "";
-        const h2 = this.buildElement("h2", "Weather Forecast");
+        let weatherHeader = ("Weather " + (this.currentLocation ? "here" : "in " + this.otherLocation));
+        const h2 = this.buildElement("h2", weatherHeader);
         this.weatherContainer.appendChild(h2);
 
         const weatherData = await this.getWeather();
@@ -169,6 +170,7 @@ export class WeatherMaker extends Section {
             const option = document.createElement("option");
             option.value = location.id;
             option.innerText = `${location.name}, ${location.country}`;
+            this.otherLocation = location.name;
             select.appendChild(option);
             console.log(`${location.name}, ${location.country}`)
         }
