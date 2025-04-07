@@ -1,4 +1,4 @@
-import { changeBackground } from "./background.js";
+import { Backgrounder } from "./background.js";
 import { WeatherMaker } from "./weather.js";
 import { dateTime } from "./timedate.js";
 import { Linker } from "./links.js";
@@ -33,38 +33,26 @@ dateTime();
 const links = new Linker();
 links.init();
 
-// const addLinkBtn = document.querySelector("#add-link-button");
-// const addLinkForm = document.querySelector("#links-form");
+//Background funktionality
+const backgroundItem = new Backgrounder();
+backgroundItem.init();
 
-// addLinkBtn.addEventListener("click", () => {
-//     const linkName = document.querySelector("#link-name").value;
-//     const linkURL = document.querySelector("#link-url");
+// changeBackground(); //makes sure there is a background to begin with
+// const randomBgBtn = document.querySelector("#random-bg-btn");
+// const themedBgBtn = document.querySelector("#themed-bg-btn");
+// const themedBgInput = document.querySelector("#themed-bg-input");
 
-//     addLink(linkName, linkURL);
-
-//     getAllStoredLinks();
-//     console.log({ ...localStorage })
+// randomBgBtn.addEventListener("click", () => {
+//     changeBackground()
 // })
 
-//linkItems();
-
-//Background funktionality
-changeBackground(); //makes sure there is a background to begin with
-const randomBgBtn = document.querySelector("#random-bg-btn");
-const themedBgBtn = document.querySelector("#themed-bg-btn");
-const themedBgInput = document.querySelector("#themed-bg-input");
-
-randomBgBtn.addEventListener("click", () => {
-    changeBackground()
-})
-
-themedBgBtn.addEventListener("click", () => {
-    console.log(themedBgInput.value);
-    changeBackground(themedBgInput.value);
-    if (!themedBgInput.value) {
-        alert("You didn't wish for something specific, so I will get a random picture for you!")
-    }
-})
+// themedBgBtn.addEventListener("click", () => {
+//     console.log(themedBgInput.value);
+//     changeBackground(themedBgInput.value);
+//     if (!themedBgInput.value) {
+//         alert("You didn't wish for something specific, so I will get a random picture for you!")
+//     }
+// })
 
 //Weather
 const weatherMaker = new WeatherMaker();
