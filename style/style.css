@@ -399,4 +399,16 @@ footer {
         height: 4rem;
         padding: 0 1rem;
     }
+
+    footer {
+        & aside {
+            max-width: 310px;
+            margin-left: auto;
+            margin-right: auto;
+
+            & button {
+                margin-top: var(--gap-width-smaller);
+            }
+        }
+    }
 }
