@@ -12,10 +12,6 @@ export class Linker extends Section {
     init() {
         this.checkForStoredLinks();
         this.domBuilder();
-        // this.addBtn.addEventListener("click", () => {
-        //     const linkName = document.querySelector("#link-name").value;
-        //     const linkURL = document.querySelector("#link-url");
-        // });
     }
 
     checkForStoredLinks() {
@@ -75,7 +71,7 @@ export class Linker extends Section {
 
     addLink(linkNameInput = "No name", linkUrlInput = "URL missing") {
 
-        if (this.links.length < 4) {
+        if (this.links.length < 5) {
             const favIconURL = this.getFaviconURL(linkUrlInput);
             console.log(favIconURL);
             this.links.push({ "linkName": linkNameInput, "linkUrl": linkUrlInput, "faviconURL": favIconURL });
@@ -118,23 +114,44 @@ export class Linker extends Section {
             this.container.append(card);
         }
 
-        const addContainer = this.buildElement("aside", null, "add-links-container");
+        const addLinkBtn = this.buildElement("button", "Add Link", "add-link-btn");
+
+        const addForm = this.buildElement("aside", null, "add-links-container", "hidden");
         const addLinkInputName = this.buildElement("input", null, "input-link-name");
         addLinkInputName.type = "text";
+        addLinkInputName.autocomplete = "off";
         addLinkInputName.placeholder = "Site name";
         const addLinkInputUrl = this.buildElement("input", null, "input-link-url");
         addLinkInputUrl.type = "text";
+        addLinkInputUrl.autocomplete = "off";
         addLinkInputUrl.placeholder = "Link to site";
-        const addLinkInputButton = this.buildElement("button", "Add Link", "link-input-btn");
+        const addLinkInputButton = this.buildElement("button", "Add", "link-input-btn");
 
-        addContainer.append(addLinkInputName, addLinkInputUrl, addLinkInputButton);
-        this.container.append(addContainer);
+        addForm.append(addLinkInputName, addLinkInputUrl, addLinkInputButton);
+        this.container.append(addForm, addLinkBtn);
+
+        addLinkBtn.addEventListener("click", () => {
+            if (this.links.length < 5) {
+                addLinkBtn.classList.toggle("hidden");
+                addForm.classList.toggle("hidden");
+            } else {
+                alert("links are full!");
+            }
+        })
 
         addLinkInputButton.addEventListener("click", () => {
-            const name = addLinkInputName.value;
-            const url = addLinkInputUrl.value;
-            this.addLink(name, url);
-            this.domBuilder();
+
+
+            if (addLinkInputName.value && addLinkInputUrl.value) {
+                const name = addLinkInputName.value;
+                const url = addLinkInputUrl.value;
+                this.addLink(name, url);
+                this.domBuilder();
+                addLinkBtn.classList.toggle("hidden");
+            } else {
+                alert("Please provide a link name and address!");
+            }
+
         })
 
     }

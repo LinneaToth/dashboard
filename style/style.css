@@ -8,13 +8,37 @@
 :root {
     --see-through-white: #ffffff79;
     --gap-width: 1rem;
-    --border-radius: 0.7rem;
+    --gap-width-smaller: 0.5rem;
+    --border-radius: 0.8rem;
     --shadow-color: #00000088;
+    --text-color: black;
+    --secondary-text-color: rgb(122, 122, 122);
+    --see-through-gray: #575757a6;
 }
 
 html {
     height: 100vh;
     overflow: hidden;
+}
+
+input {
+    height: 2.2rem;
+    outline: none;
+    border: none;
+    padding: 0 0.5rem;
+    border-radius: calc(var(--border-radius) / 2);
+    font-size: 13px;
+}
+
+button {
+    height: 2.2rem;
+    border-radius: calc(var(--border-radius) / 2);
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    background: var(--see-through-gray);
+    color: white;
 }
 
 body {
@@ -37,7 +61,7 @@ body {
 
 
 #time-date {
-    color: black;
+    color: var(--text-color);
     display: flex;
     flex: row;
     gap: var(--gap-width);
@@ -69,6 +93,7 @@ header {
         align-self: end;
         grid-area: header;
         font-size: 3rem;
+        height: 3rem;
         background: none;
         outline: none;
         border: none;
@@ -82,9 +107,11 @@ section {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    justify-content: flex-start;
     padding: var(--gap-width);
-    height: 50vh;
-    width: 100%;
+    min-height: 450px;
+    min-width: 310px;
+    max-width: 380px;
     backdrop-filter: blur(10px);
     background-color: var(--see-through-white);
     border-radius: var(--border-radius);
@@ -102,7 +129,10 @@ section {
         display: flex;
         width: 100%;
         align-items: center;
-        padding: var(--gap-width);
+        background-color: var(--see-through-white);
+        border-radius: var(--border-radius);
+        margin-bottom: var(--gap-width-smaller);
+        padding: var(--gap-width-smaller);
 
         & img {
             max-width: 40px;
@@ -117,7 +147,22 @@ section {
             border: none;
             font-weight: bolder;
             margin-left: auto;
+            margin-bottom: auto;
+            margin-top: 0;
+            padding: 0;
+            align-self: flex-start;
+            font-size: 0.75rem;
+            color: var(--secondary-text-color);
         }
+
+        & a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+    }
+
+    & button {
+        margin-top: auto;
     }
 
     & #add-links-container {
@@ -125,19 +170,27 @@ section {
         grid-template-areas:
             "sitename btn"
             "sitelink btn";
+        grid-template-columns: 80% 20%;
+        width: 100%;
+        align-self: center;
+        margin-top: auto;
 
         & button {
             grid-area: btn;
-            height: 100%;
+            margin-left: var(--gap-width);
         }
 
         #input-link-name {
-            grid-area: sitelink;
+            height: 1rem;
+            grid-area: sitename;
+            border-radius: calc(var(--border-radius) / 2) calc(var(--border-radius) / 2) 0 0;
 
         }
 
         #input-link-url {
-            grid-area: sitename;
+            height: 1rem;
+            grid-area: sitelink;
+            border-radius: 0 0 calc(var(--border-radius) / 2) calc(var(--border-radius) / 2);
         }
     }
 }
@@ -148,7 +201,6 @@ section {
     & article {
         width: 100%;
         margin-bottom: var(--gap-width);
-        height: 20%;
         background-color: var(--see-through-white);
         border-radius: var(--border-radius);
         padding: 1rem;
@@ -157,11 +209,15 @@ section {
         grid-template-areas:
             "a b b"
             "a c d";
-        grid-template-columns: 75px 1fr 1fr;
+        grid-template-columns: 75px 1.25fr 0.75fr;
 
         & .weather-text {
             grid-area: c;
             text-align: left;
+            background-color: var(--see-through-white);
+            border-radius: calc(var(--border-radius) / 2);
+            padding: 0.2rem;
+            margin-right: auto;
         }
 
         & img {
@@ -172,30 +228,54 @@ section {
         & .tempmax {
             grid-area: d;
             text-align: left;
+            background-color: var(--see-through-white);
+            border-radius: calc(var(--border-radius) / 2);
+            padding: 0.2rem;
         }
 
         & h3 {
             text-align: left;
+            font-size: 16px;
         }
+
+        & p {
+            font-size: 13px;
+        }
+    }
+
+    & button {
+        margin-top: auto;
     }
 
     & #location-container {
         display: grid;
         grid-template-areas: "current text change";
-        grid-template-columns: 15% 70% 15%;
+        grid-template-columns: 20% 60% 20%;
         width: 100%;
-        height: 2rem;
+        height: 2.2rem;
+        margin-top: auto;
 
         & input {
+            margin-top: auto;
+            margin-bottom: auto;
             grid-area: text;
-            height: 100%;
             margin-left: var(--gap-width);
+            margin-right: calc(var(--gap-width) / 2);
         }
 
         & select {
             grid-area: text;
             margin-left: var(--gap-width);
             grid-column-end: -1;
+            margin-top: auto;
+            margin-bottom: auto;
+            max-width: 200px;
+            height: 2.2rem;
+            outline: none;
+            border: none;
+            padding: 0 0.5rem;
+            border-radius: calc(var(--border-radius) / 2);
+            font-size: 13px;
 
         }
 
@@ -208,9 +288,7 @@ section {
             height: 100%;
         }
     }
-
 }
-
 
 
 #facts-section {
@@ -219,10 +297,16 @@ section {
     padding-right: 3rem;
 
     & p {
+        margin-top: auto;
+        margin-bottom: auto;
         line-height: 1.5;
         font-style: italic;
         text-align: center;
         word-break: break-word;
+    }
+
+    & button {
+        margin-top: auto;
     }
 }
 
@@ -249,6 +333,7 @@ footer {
     text-align: center;
     margin-top: auto;
     padding-bottom: var(--gap-width);
+
 }
 
 .hidden {

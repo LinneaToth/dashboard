@@ -7,34 +7,34 @@ export class WeatherMaker extends Section {
     constructor() {
         super();
         this.iconsLegend = new Map([
-            [0, { img: "clear.png", desc: "clear" }],
-            [1, { img: "partly.png", desc: "mostly clear" }],
-            [2, { img: "partly.png", desc: "partly cloudy" }],
-            [3, { img: "cloudy.png", desc: "overcast" }],
-            [45, { img: "cloudy.png", desc: "fog" }],
-            [48, { img: "cloudy", desc: "icy fog" }],
-            [51, { img: "rain.png", desc: "light drizzle" }],
-            [53, { img: "rain.png", desc: "drizzle" }],
-            [55, { img: "rain.png", desc: "heavy drizzle" }],
-            [80, { img: "rain.png", desc: "light showers" }],
-            [81, { img: "rain.png", desc: "showers" }],
-            [82, { img: "rain.png", desc: "heavy showers" }],
-            [61, { img: "rain.png", desc: "light rain" }],
-            [63, { img: "rain.png", desc: "rain" }],
-            [65, { img: "rain.png", desc: "heavy rain" }],
-            [56, { img: "icy.png", desc: "light freezing drizzle" }],
-            [57, { img: "icy.png", desc: "freezing drizzle" }],
-            [66, { img: "icy.png", desc: "light freezing rain" }],
-            [67, { img: "icy.png", desc: "freezing rain" }],
-            [77, { img: "icy.png", desc: "snow grains" }],
-            [85, { img: "icy.png", desc: "light snow showers" }],
-            [86, { img: "icy.png", desc: "snow showers" }],
-            [71, { img: "icy.png", desc: "light snow" }],
-            [73, { img: "icy.png", desc: "snow" }],
-            [75, { img: "icy.png", desc: "heavy snow" }],
-            [95, { img: "partly.png", desc: "thunderstorm" }],
-            [96, { img: "partly.png", desc: "thunderstorm with hail" }],
-            [99, { img: "partly.png", desc: "thunderstorm with hail" }],
+            [0, { img: "clear.png", desc: "Clear" }],
+            [1, { img: "partly.png", desc: "Mostly clear" }],
+            [2, { img: "partly.png", desc: "Partly cloudy" }],
+            [3, { img: "cloudy.png", desc: "Overcast" }],
+            [45, { img: "cloudy.png", desc: "Fog" }],
+            [48, { img: "cloudy", desc: "Icy fog" }],
+            [51, { img: "rain.png", desc: "Light drizzle" }],
+            [53, { img: "rain.png", desc: "Drizzle" }],
+            [55, { img: "rain.png", desc: "Heavy drizzle" }],
+            [80, { img: "rain.png", desc: "Light showers" }],
+            [81, { img: "rain.png", desc: "Showers" }],
+            [82, { img: "rain.png", desc: "Heavy showers" }],
+            [61, { img: "rain.png", desc: "Light rain" }],
+            [63, { img: "rain.png", desc: "Rain" }],
+            [65, { img: "rain.png", desc: "Heavy rain" }],
+            [56, { img: "icy.png", desc: "Light freezing drizzle" }],
+            [57, { img: "icy.png", desc: "Freezing drizzle" }],
+            [66, { img: "icy.png", desc: "Light freezing rain" }],
+            [67, { img: "icy.png", desc: "Freezing rain" }],
+            [77, { img: "icy.png", desc: "Snow grains" }],
+            [85, { img: "icy.png", desc: "Light snow showers" }],
+            [86, { img: "icy.png", desc: "Snow showers" }],
+            [71, { img: "icy.png", desc: "Light snow" }],
+            [73, { img: "icy.png", desc: "Snow" }],
+            [75, { img: "icy.png", desc: "Heavy snow" }],
+            [95, { img: "partly.png", desc: "Thunderstorm" }],
+            [96, { img: "partly.png", desc: "Thunderstorm with hail" }],
+            [99, { img: "partly.png", desc: "Thunderstorm with hail" }],
         ]);
         this.lat;
         this.long;
@@ -127,9 +127,15 @@ export class WeatherMaker extends Section {
             this.weatherContainer.appendChild(article);
         }
 
-        this.locationContainer = this.buildElement("aside", null, "location-container");
+        this.locationBtn = this.buildElement("button", "Location", "open-location-options-btn");
+
+        this.locationContainer = this.buildElement("aside", null, "location-container", "hidden");
         this.currentLocationBtn = this.buildElement("button", "Here", "current-location-btn");
 
+        this.locationBtn.addEventListener("click", () => {
+            this.locationContainer.classList.toggle("hidden");
+            this.locationBtn.classList.toggle("hidden");
+        })
 
         this.currentLocationBtn.addEventListener("click", () => {
             this.currentLocation = true;
@@ -149,45 +155,50 @@ export class WeatherMaker extends Section {
         this.newLocationInput.placeholder = "Name of city"
 
         this.locationContainer.append(this.currentLocationBtn, this.newLocationInput, this.changeLocationBtn)
-        this.weatherContainer.append(this.locationContainer);
+        this.weatherContainer.append(this.locationBtn, this.locationContainer);
     }
 
     async changeLocation(input) {
-        this.otherLocation = input;
-        const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${input}&count=10&language=en&format=json`)
-        let searchResult = await response.json();
-        searchResult = searchResult.results;
-        console.log(searchResult);
+        if (input) {
+            this.otherLocation = input;
+            const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${input}&count=10&language=en&format=json`)
+            let searchResult = await response.json();
+            searchResult = searchResult.results;
+            console.log(searchResult);
 
-        const select = document.createElement("select");
-        const option = document.createElement("option");
-        option.innerText = `Search results for ${input}:`;
-        select.appendChild(option);
-
-        this.toggleDisplay(this.newLocationInput);
-        this.toggleDisplay(this.changeLocationBtn);
-
-        for (let location of searchResult) {
+            const select = document.createElement("select");
             const option = document.createElement("option");
-            option.value = location.id;
-            option.innerText = `${location.name}, ${location.country}`;
+            option.innerText = `Search results for ${input}:`;
             select.appendChild(option);
-            console.log(`${location.name}, ${location.country}`)
+
+            this.toggleDisplay(this.newLocationInput);
+            this.toggleDisplay(this.changeLocationBtn);
+
+            for (let location of searchResult) {
+                const option = document.createElement("option");
+                option.value = location.id;
+                option.innerText = `${location.name}, ${location.country}`;
+                select.appendChild(option);
+                console.log(`${location.name}, ${location.country}`)
+            }
+
+
+
+            select.addEventListener("change", () => {
+                let id = select.value;
+                let chosenLocation = searchResult.find((element) => Number(element.id) === Number(id));
+                this.lat = chosenLocation.latitude;
+                this.long = chosenLocation.longitude;
+
+                this.currentLocation = false;
+                this.weatherDOM();
+                this.locationBtn.classList.toggle("hidden");
+            })
+
+            this.locationContainer.appendChild(select);
+            select.active();
+        } else {
+            alert("Please enter a location in the search field!")
         }
-
-
-        select.addEventListener("change", () => {
-            let id = select.value;
-            let chosenLocation = searchResult.find((element) => Number(element.id) === Number(id));
-            this.lat = chosenLocation.latitude;
-            this.long = chosenLocation.longitude;
-
-            this.currentLocation = false;
-            this.weatherDOM();
-        })
-
-        this.locationContainer.appendChild(select);
-        select.active();
-
     }
 }
