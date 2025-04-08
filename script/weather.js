@@ -32,9 +32,9 @@ export class WeatherMaker extends Section {
             [71, { img: "icy.png", desc: "Light snow" }],
             [73, { img: "icy.png", desc: "Snow" }],
             [75, { img: "icy.png", desc: "Heavy snow" }],
-            [95, { img: "partly.png", desc: "Thunderstorm" }],
-            [96, { img: "partly.png", desc: "Thunderstorm with hail" }],
-            [99, { img: "partly.png", desc: "Thunderstorm with hail" }],
+            [95, { img: "thunder.png", desc: "Thunderstorm" }],
+            [96, { img: "thunder.png", desc: "Thunderstorm with hail" }],
+            [99, { img: "thunder.png", desc: "Thunderstorm with hail" }],
         ]);
         this.lat;
         this.long;

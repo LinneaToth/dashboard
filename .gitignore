@@ -10,6 +10,8 @@ target/
 .debug
 .vscode
 
+.gitignore
+
 script/config.js
 
             //const personalAccessKey = "46839803-e2eda84b6d67f6e91a5ab5635"
@@ -18,4 +20,4 @@ script/config.js
 
             //Work on smaller / larger screens, just add some MQ and adjust the grid
         
-        
+

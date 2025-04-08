@@ -5,8 +5,7 @@ const dateTime = function () {
     const timeElement = document.querySelector("#time")
 
     let date = new Date();
-    date = date.toDateString();
-    date = date.slice(date.indexOf(" "))
+    date = date.toLocaleDateString("sv-SE");
 
     let time = new Date();
     time = time.toTimeString();
