@@ -118,8 +118,8 @@ export class Backgrounder {
         await this.apiKeyChecker();
 
         if (userInput === null || this.apiKey === false) {
-            console.log("no input, lets await something random")
-            const url = await this.getRandomBackgroundURL();
+            console.log("no input, lets get something random")
+            const url = this.getRandomBackgroundURL();
             return url;
 
         } else if (userInput && this.apiKey === true) {

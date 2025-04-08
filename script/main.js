@@ -3,17 +3,22 @@ import { WeatherMaker } from "./weather.js";
 import { dateTime } from "./timedate.js";
 import { Linker } from "./links.js";
 import { RandomFactDeliverer } from "./randomFact.js";
+import { Heading } from "./heading.js";
 
 "use strict"
 
-//Changing the name title
-const nameText = document.querySelector("#name-text");
-nameText.value = localStorage.getItem("nameText") || "John Doe Dashboard";
 
-nameText.addEventListener("input", () => {
-    console.log(nameText.value);
-    localStorage.setItem("nameText", nameText.value);
-})
+
+//Changing the name title
+const heading = new Heading;
+
+// const nameText = document.querySelector("#name-text");
+// nameText.value = localStorage.getItem("nameText") || "John Doe Dashboard";
+
+// nameText.addEventListener("input", () => {
+//     console.log(nameText.value);
+//     localStorage.setItem("nameText", nameText.value);
+// })
 
 
 //Notepad functionality
@@ -29,7 +34,6 @@ notes.addEventListener("input", () => {
 dateTime();
 
 //Link functionality
-
 const links = new Linker();
 links.init();
 
