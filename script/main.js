@@ -37,23 +37,6 @@ links.init();
 const backgroundItem = new Backgrounder();
 backgroundItem.init();
 
-// changeBackground(); //makes sure there is a background to begin with
-// const randomBgBtn = document.querySelector("#random-bg-btn");
-// const themedBgBtn = document.querySelector("#themed-bg-btn");
-// const themedBgInput = document.querySelector("#themed-bg-input");
-
-// randomBgBtn.addEventListener("click", () => {
-//     changeBackground()
-// })
-
-// themedBgBtn.addEventListener("click", () => {
-//     console.log(themedBgInput.value);
-//     changeBackground(themedBgInput.value);
-//     if (!themedBgInput.value) {
-//         alert("You didn't wish for something specific, so I will get a random picture for you!")
-//     }
-// })
-
 //Weather
 const weatherMaker = new WeatherMaker();
 weatherMaker.init("https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=weather_code,temperature_2m_max&timezone=Europe%2FBerlin&forecast_days=3");
@@ -61,4 +44,5 @@ weatherMaker.init("https://api.open-meteo.com/v1/forecast?latitude=${lat}&longit
 
 //Random fact
 const randomiser = new RandomFactDeliverer();
-randomiser.init("https://uselessfacts.jsph.pl/api/v2/facts/random");
+randomiser.init("https://catfact.ninja/fact");
+// randomiser.init("https://uselessfacts.jsph.pl/api/v2/facts/random");

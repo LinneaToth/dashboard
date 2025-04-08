@@ -171,8 +171,8 @@ export class WeatherMaker extends Section {
             option.innerText = `Search results for ${input}:`;
             select.appendChild(option);
 
-            this.toggleDisplay(this.newLocationInput);
-            this.toggleDisplay(this.changeLocationBtn);
+            this.newLocationInput.classList.toggle("hidden");
+            this.changeLocationBtn.classList.toggle("hidden");
 
             for (let location of searchResult) {
                 const option = document.createElement("option");

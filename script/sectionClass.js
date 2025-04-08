@@ -2,11 +2,6 @@ export class Section {
     constructor() {
     }
 
-    toggleDisplay(element) {
-        element.classList.toggle("hidden");
-    }
-
-
     buildElement(type, innerText = null, id = null, cls = null) {
         const builtElement = document.createElement(type);
 
