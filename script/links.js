@@ -33,12 +33,10 @@ export class Linker extends Section {
         if (domain != "URL missing") {
             if (domain.lastIndexOf("https://") != -1) {
                 domain = domain.slice(domain.lastIndexOf("https://") + 8);
-                console.log(domain);
             }
 
             if (domain.lastIndexOf("http://") != -1) {
                 domain = domain.slice(domain.lastIndexOf("http://") + 7);
-                console.log(domain);
             }
 
             let faviconURL = `https://www.google.com/s2/favicons?domain=https://${domain}&sz=40`
@@ -53,9 +51,7 @@ export class Linker extends Section {
 
         if (this.links.length < 5) {
             const favIconURL = this.getFaviconURL(linkUrlInput);
-            console.log(favIconURL);
             this.links.push({ "linkName": linkNameInput, "linkUrl": linkUrlInput, "faviconURL": favIconURL });
-            console.log(this.links);
             this.saveLinksToLocalStorage();
         } else {
             alert("Maximum amount of stored links has been reached");
@@ -87,7 +83,6 @@ export class Linker extends Section {
         this.container.innerHTML = "";
         const heading = this.buildElement("h2", "Quick Links");
         this.container.append(heading);
-        console.log("dom builder says hello")
 
         for (let i = 0; i < this.links.length; i++) {
             const card = this.linkCardBuilder(this.links[i], i);

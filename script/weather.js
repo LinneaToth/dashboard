@@ -6,7 +6,7 @@ export class WeatherMaker extends Section {
 
     constructor() {
         super();
-        this.iconsLegend = new Map([
+        this.iconsLegend = new Map([ //A map made from the API:s weather codes, and matched to description and icons found on Pixabay
             [0, { img: "clear.png", desc: "Clear" }],
             [1, { img: "partly.png", desc: "Mostly clear" }],
             [2, { img: "partly.png", desc: "Partly cloudy" }],
@@ -79,11 +79,9 @@ export class WeatherMaker extends Section {
         if (this.currentLocation === true) {
             const coordinates = await this.getCurrentLocation();
             [this.lat, this.long] = coordinates;
-            console.log("from getweather()", coordinates, this.lat, this.long);
         }
         const weatherResponse = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${this.lat}&longitude=${this.long}&daily=weather_code,temperature_2m_max&timezone=Europe%2FBerlin&forecast_days=3`); //https://open-meteo.com/en/docs
         const weatherData = await weatherResponse.json();
-        console.log(weatherData);
         return weatherData;
     }
 
@@ -97,12 +95,10 @@ export class WeatherMaker extends Section {
 
         for (let i = 0; i < 3; i++) { //We only need three days. 
             const weatherCode = weatherData.daily.weather_code[i];
-            const tempMax = document.createElement("p");
-            tempMax.innerText = "Max " + Math.ceil(weatherData.daily.temperature_2m_max[i]) + "°C";
-            tempMax.classList.add("tempmax");
-            const article = document.createElement("article");
-            article.id = `w${i}`;
-            const day = document.createElement("h3");
+            const tempMax = this.buildElement("p", "Max " + Math.ceil(weatherData.daily.temperature_2m_max[i]) + "°C", null, "tempmax");
+            const article = this.buildElement("article", null, `w${i}`);
+            const day = this.buildElement("h3");
+
             switch (i) {
                 case 0:
                     day.innerText = "Today";
@@ -113,16 +109,10 @@ export class WeatherMaker extends Section {
                 case 2:
                     day.innerText = this.getWeekday(2);
             }
-            const tempElement = document.createElement("p");
-            tempElement.innerText = tempMax;
-            const weather = document.createElement("img");
-            weather.classList.add("icon");
+            const weather = this.buildElement("img", null, null, "icon");
             weather.src = `./img/weather-icons/${this.iconsLegend.get(weatherCode)?.img}`
             weather.alt = `${this.iconsLegend.get(weatherCode)?.desc}`
-            const weatherTxt = document.createElement("p");
-            weatherTxt.classList.add("weather-text")
-            weatherTxt.innerText = this.iconsLegend.get(weatherCode)?.desc;
-
+            const weatherTxt = this.buildElement("p", this.iconsLegend.get(weatherCode)?.desc, null, "weather-text");
             article.append(weather, day, tempMax, weatherTxt)
             this.weatherContainer.appendChild(article);
         }
@@ -163,26 +153,27 @@ export class WeatherMaker extends Section {
             this.otherLocation = input;
             const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${input}&count=10&language=en&format=json`)
             let searchResult = await response.json();
-            searchResult = searchResult.results;
-            console.log(searchResult);
 
-            const select = document.createElement("select");
-            const option = document.createElement("option");
-            option.innerText = `Search results for ${input}:`;
+
+            if (!searchResult.results || searchResult.results.length === 0) {
+                alert(`No results found for "${input}". Try another city.`);
+                return;
+            }
+
+            searchResult = searchResult.results;
+
+            const select = this.buildElement("select");
+            const option = this.buildElement("option", `Search results for ${input}:`);
             select.appendChild(option);
 
             this.newLocationInput.classList.toggle("hidden");
             this.changeLocationBtn.classList.toggle("hidden");
 
             for (let location of searchResult) {
-                const option = document.createElement("option");
+                const option = this.buildElement("option", `${location.name}, ${location.country}`);
                 option.value = location.id;
-                option.innerText = `${location.name}, ${location.country}`;
                 select.appendChild(option);
-                console.log(`${location.name}, ${location.country}`)
             }
-
-
 
             select.addEventListener("change", () => {
                 let id = select.value;
@@ -196,7 +187,7 @@ export class WeatherMaker extends Section {
             })
 
             this.locationContainer.appendChild(select);
-            select.active();
+
         } else {
             alert("Please enter a location in the search field!")
         }

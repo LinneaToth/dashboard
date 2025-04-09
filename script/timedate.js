@@ -1,21 +1,21 @@
 "use strict"
 
-const dateTime = function () {
-    const dateElement = document.querySelector("#date")
-    const timeElement = document.querySelector("#time")
+export class DateTime {
+    constructor() {
+        this.timer();
+    }
 
-    let date = new Date();
-    date = date.toLocaleDateString("sv-SE");
+    timer() {
+        const dateElement = document.querySelector("#date");
+        const timeElement = document.querySelector("#time");
 
-    let time = new Date();
-    time = time.toTimeString();
-    time = time.slice(0, time.lastIndexOf(":"))
+        let date = new Date().toLocaleDateString("sv-SE");
+        let time = new Date().toTimeString();
+        time = time.slice(0, time.lastIndexOf(":"));
 
-    dateElement.innerText = date;
-    timeElement.innerText = time;
+        dateElement.innerText = date;
+        timeElement.innerText = time;
 
-    setTimeout(dateTime, 1000);
+        setTimeout(this.timer.bind(this), 1000); //"this" context of the object is lost when timer() calls itself unless bound 
+    }
 }
-
-
-export { dateTime };

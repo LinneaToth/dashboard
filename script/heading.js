@@ -8,13 +8,9 @@ export class Heading {
             localStorage.setItem("nameText", this.nameElement.value);
         });
 
-        // this.mqBreakPointSmaller = window.matchMedia("(max-width: 1550px)");
-        // this.mqBreakPointSmaller.addEventListener("change", this.headingAdjuster);
-
         this.mqBreakPointMobile = window.matchMedia("(max-width: 750px");
         this.mqBreakPointMobile.addEventListener("change", this.headingAdjuster);
 
-        // this.headingAdjuster(this.mqBreakPointSmaller);
         this.headingAdjuster(this.mqBreakPointMobile);
     }
 
@@ -22,16 +18,8 @@ export class Heading {
         const windowWidth = window.screen.width;
 
         if (event.matches) {
-            // if (windowWidth <= 1550) {
-            //     this.nameElement.rows = "1";
-            //     this.nameElement.cols = "30"
-            //     return;
-            // }
-
-            if (windowWidth <= 750) {
-                this.nameElement.rows = "2";
-                this.nameElement.columns = "18";
-            }
+            this.nameElement.rows = "2";
+            this.nameElement.columns = "18";
         }
     }
 }

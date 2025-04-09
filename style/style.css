@@ -40,6 +40,17 @@ button {
     cursor: pointer;
     background: var(--see-through-gray);
     color: white;
+    transition: all 0.2s ease-in-out;
+
+    &:active {
+        filter: brightness(90%);
+
+        transform: scale(0.95);
+    }
+
+    &:hover {
+        filter: brightness(110%);
+    }
 }
 
 body {
@@ -171,7 +182,7 @@ section {
         margin-top: auto;
     }
 
-    & #add-links-container {
+    #add-links-container {
         display: grid;
         grid-template-areas:
             "sitename btn"
@@ -339,6 +350,10 @@ footer {
 
 }
 
+#api-key-btn {
+    border: 1px solid white;
+}
+
 .hidden {
     display: none !important;
 }
@@ -375,26 +390,36 @@ footer {
 @media screen and (max-width: 750px) {
 
     body {
+        min-width: 350px;
         background-attachment: fixed;
         min-height: 100vh;
         display: grid;
-        grid-template-areas: "time   time    time"
-            "header header  header"
-            ". links ."
-            ". weather ."
-            ". facts ."
-            ". notes ."
-            "footer footer footer";
+        grid-template-areas: "time"
+            "header"
+            "links"
+            "weather"
+            "facts"
+            "notes"
+            "footer";
         grid-template-rows: 3fr auto 4fr;
-        grid-template-columns: 1fr auto 1fr;
+        grid-template-columns: auto;
         gap: var(--gap-width);
         font-family: Arial, Helvetica, sans-serif;
         overflow-y: auto;
         overflow-x: hidden;
+        padding-bottom: 10rem;
+        padding-right: auto;
+        padding-left: auto;
+    }
+
+    section {
+        margin-left: auto;
+        margin-right: auto;
+        width: 310px;
     }
 
     header #name-text {
-        max-width: 310px;
+        width: 310px;
         font-size: 1.75rem;
         height: 4rem;
         padding: 0 1rem;
@@ -402,7 +427,7 @@ footer {
 
     footer {
         & aside {
-            max-width: 310px;
+            width: 310px;
             margin-left: auto;
             margin-right: auto;
 
