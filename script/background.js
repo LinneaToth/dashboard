@@ -64,7 +64,7 @@ export class Backgrounder {
                 this.apiKey = true;
                 this.search.disabled = false;
                 this.searchBtn.disabled = false;
-                this.searchBtn.innerText = "Search!";
+                this.searchBtn.innerHTML = `<i class="fa-solid fa-magnifying-glass"></i> Search`;
                 this.keyBtn.remove();
             } else {
                 this.apiKey = false;

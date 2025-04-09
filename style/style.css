@@ -2,7 +2,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-
+    font-family: roboto, arial, sans-serif;
 }
 
 :root {
@@ -27,13 +27,13 @@ input {
     outline: none;
     border: none;
     padding: 0 0.5rem;
-    border-radius: calc(var(--border-radius) / 2);
+    border-radius: var(--border-radius);
     font-size: 13px;
 }
 
 button {
     height: var(--button-height);
-    border-radius: calc(var(--border-radius));
+    border-radius: var(--border-radius);
     border: none;
     outline: none;
     padding: 0.5rem;
@@ -41,6 +41,7 @@ button {
     background: var(--see-through-gray);
     color: white;
     transition: all 0.2s ease-in-out;
+    font-weight: bold;
 
     &:active {
         filter: brightness(90%);
@@ -50,6 +51,11 @@ button {
 
     &:hover {
         filter: brightness(110%);
+    }
+
+    & i {
+        margin-right: var(--gap-width-smaller);
+        font-weight: lighter;
     }
 }
 
@@ -106,7 +112,7 @@ header {
         align-self: end;
         grid-area: header;
         font-size: 3rem;
-        height: 3rem;
+        height: 4rem;
         background: none;
         outline: none;
         border: none;
@@ -126,7 +132,7 @@ section {
     justify-content: flex-start;
     padding: var(--gap-width);
     min-height: 450px;
-    width: 330px;
+    width: 310px;
     backdrop-filter: blur(10px);
     background-color: var(--see-through-white);
     border-radius: var(--border-radius);
@@ -155,13 +161,15 @@ section {
         padding: var(--gap-width-smaller);
 
         & img {
-            max-width: 40px;
+            width: 40px;
+            height: 40px;
             margin-right: var(--gap-width);
             border-radius: 50%;
         }
 
         & button {
             height: 20px;
+            width: 20px;
             background: none;
             outline: none;
             border: none;
@@ -308,12 +316,9 @@ section {
 /* Styling for the facts section */
 #facts-section {
     grid-area: facts;
-    padding-left: 3rem;
-    padding-right: 3rem;
 
     & p {
-        margin-top: auto;
-        margin-bottom: auto;
+        margin: auto 3rem;
         line-height: 1.5;
         font-style: italic;
         text-align: center;
@@ -336,6 +341,8 @@ section {
         border: none;
         resize: none;
         padding: var(--border-radius);
+        font-family: "Nanum Pen Script", cursive;
+        font-size: 1.5rem;
     }
 }
 
@@ -354,13 +361,17 @@ footer {
 
 #api-key-btn {
     border: 1px solid white;
+
+    & i {
+        margin-right: 0;
+    }
 }
 
 .hidden {
     display: none !important;
 }
 
-@media screen and (max-width: 1550px) {
+@media screen and (max-width: 1300px) {
 
     body {
         background-attachment: fixed;

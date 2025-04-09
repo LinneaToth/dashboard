@@ -40,7 +40,7 @@ export class Linker extends Section {
             return faviconURL;
 
         } else {
-            return `https://cdn.pixabay.com/photo/2017/01/31/20/34/image-2027072_960_720.png`
+            return `./img/missing_favicon.png`
         }
     }
 
@@ -86,7 +86,7 @@ export class Linker extends Section {
             this.container.append(card);
         }
 
-        const addLinkBtn = this.buildElement("button", " Add Link", "add-link-btn");
+        const addLinkBtn = this.buildElement("button", "Add Link", "add-link-btn");
         const linkIcon = this.buildElement("i", null, null, ["fa-solid", "fa-link"]);
         addLinkBtn.prepend(linkIcon);
 
