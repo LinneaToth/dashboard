@@ -1,20 +1,10 @@
-# Dashboard - WORK IN PROGRESS!
+# Dashboard 
+
+![Preview of Dashboard](img/preview.jpg)
 
 A modular dashboard with weather, links, notes and more! Built with JavaScript, using localStorage and external APIs.
 
-## Conclusion
-
-### Strengths:
-
-- Since we are currently working with only front-end technologies in my education, I don't have access to optimal methods of dealing with API keys securely. Hardcoding them makes them easily available. If I use a github key, they are somewhat hidden, but would still be visible through the browser when using the dashboard. Therefore, I came up with a workaround, that prompts the user for their key and stores it locally in localStorage.
-
-While it isn't perfect, at least it is not going to be distributed in clear writing. I debated whether to list this as a strength or marking it with room for improvement. My opinion is ultimately that this is a strength, since it solves the problem with the tools and means accessible at the moment.
-
-### Room for improvement:
-
-- The heading in the weather section depends on whatever input the user gives when searching. This might, in some situations, not be optimal. If I were to give this a rework, I would base it on the chosen search result.
-
-- Even though CSS nesting is a baseline feature since 2023, and should be available to most users, there will be some older browsers it doesn't yet work on. According to caniuse.com, approximately 8.6% of users, globally, will have issues with displaying my dashboard as intended.
+[Live page!](https://linneatoth.github.io/dashboard/)
 
 ## General approach
 
@@ -89,6 +79,20 @@ To avoid hard coding my personal Pixabay API-key, I have made a solution that pr
 This tiny class ensures that the heading can be changed. I wanted to use an HTML-element that is made for taking input. The element I chose is a textarea, to facilitate for more rows on smaller devices. There is a matchMedia method in use, specifying the breakpoint where more rows are needed.
 
 The script listens for changes to the textarea value, and stores the content to localStorage. Upon load, it will make sure the stored text is displayed in the textarea.
+
+## Conclusion
+
+### Strengths:
+- Separation of concerns and modularity. I have divided the code into separate classes, based on functionality. It makes for easier troubleshooting and smoother development.   
+
+- Since we are currently working with front-end technologies in my education, I don't have access to optimal methods of securely dealing with API keys. Hardcoding them make them easily available. If I use Github's tools for keys they are somewhat hidden, but would still be visible through the browser when using the dashboard. Therefore, I came up with a workaround, that prompts the user for their key and stores it locally in localStorage.
+While it isn't perfect, at least the key is not going to be distributed in clear writing. I debated whether to list this as a strength or marking it with room for improvement. My opinion is ultimately that this is a strength, since it solves the problem with the tools and means accessible at the moment.
+
+### Room for improvement:
+
+- The heading in the weather section depends on whatever input the user gives when searching. This might, in some situations, not be optimal. If I were to give this a rework, I would base it on the chosen search result.
+
+- Even though CSS nesting is a baseline feature since 2023, and should be available to most users, there will be some older browsers it doesn't yet work on. According to caniuse.com, approximately 8.6% of users, globally, will have issues with displaying my dashboard as intended.
 
 ## The full details of the assignment are provided below - machine translated from Swedish, for your convenience!
 
