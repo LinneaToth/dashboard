@@ -11,6 +11,7 @@ export class Backgrounder {
         this.apiKeyValue; //Will be set by the user or gotten from localstorage. 
     }
 
+    //since the constructor cannot be async, I need a separate function to initialize the instance
     async init() {
         await this.apiKeyChecker();
         this.getCurrentWindowDim();
