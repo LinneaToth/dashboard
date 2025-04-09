@@ -33,7 +33,7 @@ input {
 
 button {
     height: var(--button-height);
-    border-radius: calc(var(--border-radius) / 2);
+    border-radius: calc(var(--border-radius));
     border: none;
     outline: none;
     padding: 0.5rem;
@@ -64,7 +64,7 @@ body {
         ". links weather facts notes ."
         "footer footer footer footer footer footer";
     grid-template-rows: 3fr 1fr 5fr 4fr;
-    grid-template-columns: 1fr 3fr 3fr 3fr 3fr 1fr;
+    grid-template-columns: 1fr repeat(4 auto) 1fr;
     gap: var(--gap-width);
     font-family: Arial, Helvetica, sans-serif;
 
@@ -126,8 +126,7 @@ section {
     justify-content: flex-start;
     padding: var(--gap-width);
     min-height: 450px;
-    min-width: 310px;
-    max-width: 380px;
+    width: 330px;
     backdrop-filter: blur(10px);
     background-color: var(--see-through-white);
     border-radius: var(--border-radius);
@@ -135,6 +134,10 @@ section {
     & h2 {
         padding-top: 1rem;
         margin-bottom: var(--gap-width);
+    }
+
+    & button {
+        width: 100%;
     }
 }
 
@@ -187,10 +190,9 @@ section {
         grid-template-areas:
             "sitename btn"
             "sitelink btn";
-        grid-template-columns: 80% 20%;
-        width: 100%;
-        align-self: center;
+        grid-template-columns: 70% 30%;
         margin-top: auto;
+        margin-left: -15px;
 
         & button {
             grid-area: btn;

@@ -117,7 +117,9 @@ export class WeatherMaker extends Section {
             this.weatherContainer.appendChild(article);
         }
 
-        this.locationBtn = this.buildElement("button", "Location", "open-location-options-btn");
+        this.locationBtn = this.buildElement("button", " Location", "open-location-options-btn");
+        const locationIcon = this.buildElement("i", null, null, ["fa-solid", "fa-location-dot"]);
+        this.locationBtn.prepend(locationIcon);
 
         this.locationContainer = this.buildElement("aside", null, "location-container", "hidden");
         this.currentLocationBtn = this.buildElement("button", "Here", "current-location-btn");

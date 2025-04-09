@@ -4,27 +4,21 @@ import { DateTime } from "./timedate.js";
 import { Linker } from "./links.js";
 import { RandomFactDeliverer } from "./randomFact.js";
 import { Heading } from "./heading.js";
+import { Notepad } from "./notepad.js";
 
 "use strict"
 
 //Changing the name title
-const heading = new Heading;
+const heading = new Heading();
 
 //Notepad functionality
-const notes = document.querySelector("#notepad");
-notes.value = localStorage.getItem("notepad") || "";
-
-notes.addEventListener("input", () => {
-    console.log(notes.value);
-    localStorage.setItem("notepad", notes.value);
-})
+const notes = new Notepad();
 
 //Date & time functionality
-const dateTime = new DateTime;
+const dateTime = new DateTime();
 
 //Link functionality
 const links = new Linker();
-links.init();
 
 //Background funktionality
 const backgroundItem = new Backgrounder();

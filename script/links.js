@@ -7,9 +7,6 @@ export class Linker extends Section {
         super();
         this.links = [];
         this.container = document.querySelector("#quick-links");
-    }
-
-    init() {
         this.checkForStoredLinks();
         this.domBuilder();
     }
@@ -89,7 +86,9 @@ export class Linker extends Section {
             this.container.append(card);
         }
 
-        const addLinkBtn = this.buildElement("button", "Add Link", "add-link-btn");
+        const addLinkBtn = this.buildElement("button", " Add Link", "add-link-btn");
+        const linkIcon = this.buildElement("i", null, null, ["fa-solid", "fa-link"]);
+        addLinkBtn.prepend(linkIcon);
 
         const addForm = this.buildElement("aside", null, "add-links-container", "hidden");
         const addLinkInputName = this.buildElement("input", null, "input-link-name");

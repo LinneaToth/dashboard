@@ -100,7 +100,7 @@ export class Backgrounder {
             const response = await fetch(`https://pixabay.com/api/?key=${key}`);
             return response.ok;
         } catch (error) {
-            console.log("Something when wrong trying to validate your API-key!", error)
+            console.error("Something when wrong trying to validate your API-key!", error)
         }
     }
 
