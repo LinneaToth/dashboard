@@ -32,6 +32,6 @@ This provides a method that all of the inheriting classes can use:
 
 ## Notes
 
-The note section is so tiny, it didn't even get a module of it's own. Instead, in main there is an event listener for the text field. On every registered input, local storage is updated with whatever the notepad says. The notes stored in local storage are inserted into the textarea upon launch of the page.
+On every registered input, local storage is updated with whatever the notepad says. The notes stored in local storage are inserted into the textarea upon launch of the page.
 
 ## Background
