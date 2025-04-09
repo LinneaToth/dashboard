@@ -94,6 +94,10 @@ While it isn't perfect, at least the key is not going to be distributed in clear
 
 - Even though CSS nesting is a baseline feature since 2023, and should be available to most users, there will be some older browsers it doesn't yet work on. According to caniuse.com, approximately 8.6% of users, globally, will have issues with displaying my dashboard as intended.
 
+- Errors and issues could be communicated in a nicer fashion than with alerts.
+
+- There are some minor quirks that could be remedied. For instance, if your press enter while typing in the heading, you will add an invisible row. That was not the intention. 
+
 ## The full details of the assignment are provided below - machine translated from Swedish, for your convenience!
 
 > ### About the Task
