@@ -2,7 +2,7 @@
 
 ![Preview of Dashboard](img/preview.jpg)
 
-A modular dashboard with weather, links, notes and more! Built with JavaScript, using localStorage and external APIs.
+A dashboard with weather, links, notes and more! Built with JavaScript, using localStorage and external APIs.
 
 [Live page!](https://linneatoth.github.io/dashboard/)
 
