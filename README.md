@@ -1,4 +1,4 @@
-# Dashboard 
+# Dashboard
 
 ![Preview of Dashboard](img/preview.jpg)
 
@@ -83,10 +83,11 @@ The script listens for changes to the textarea value, and stores the content to 
 ## Conclusion
 
 ### Strengths:
-- Separation of concerns and modularity. I have divided the code into separate classes, based on functionality. It makes for easier troubleshooting and smoother development.   
+
+- Separation of concerns and modularity. I have divided the code into separate classes, based on functionality. It makes for easier troubleshooting and smoother development.
 
 - Since we are currently working with front-end technologies in my education, I don't have access to optimal methods of securely dealing with API keys. Hardcoding them make them easily available. If I use Github's tools for keys they are somewhat hidden, but would still be visible through the browser when using the dashboard. Therefore, I came up with a workaround, that prompts the user for their key and stores it locally in localStorage.
-While it isn't perfect, at least the key is not going to be distributed in clear writing. I debated whether to list this as a strength or marking it with room for improvement. My opinion is ultimately that this is a strength, since it solves the problem with the tools and means accessible at the moment.
+  While it isn't perfect, at least the key is not going to be distributed in clear writing. I debated whether to list this as a strength or marking it with room for improvement. My opinion is ultimately that this is a strength, since it solves the problem with the tools and means accessible at the moment.
 
 ### Room for improvement:
 
@@ -96,7 +97,9 @@ While it isn't perfect, at least the key is not going to be distributed in clear
 
 - Errors and issues could be communicated in a nicer fashion than with alerts.
 
-- There are some minor quirks that could be remedied. For instance, if your press enter while typing in the heading, you will add an invisible row. That was not the intention. 
+- There are some minor quirks that could be remedied. For instance, if your press enter while typing in the heading, you will add an invisible row. That was not the intention.
+
+- Next time I go for OOP, I will implement private properties (#). There is no point in everything being accessible from outside of the class.
 
 ## The full details of the assignment are provided below - machine translated from Swedish, for your convenience!
 

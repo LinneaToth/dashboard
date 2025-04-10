@@ -48,6 +48,9 @@ export class Linker extends Section {
 
         if (this.links.length < 5) {
             const favIconURL = this.getFaviconURL(linkUrlInput);
+            if (linkUrlInput.search("http://") === -1) {
+                linkUrlInput = "https://" + linkUrlInput; //Ensures that URL's are absolute
+            }
             this.links.push({ "linkName": linkNameInput, "linkUrl": linkUrlInput, "faviconURL": favIconURL });
             this.saveLinksToLocalStorage();
         } else {

@@ -18,14 +18,11 @@ export class Backgrounder {
         this.setRandomBg();
         this.searchBtn.addEventListener("click", async () => {
             try {
-                console.log("button was clicked!");
                 const input = this.search.value;
                 let url;
 
                 if (input) {
-                    console.log("This was your input:", input);
                     url = await this.getBackgroundURL(input);
-                    console.log(url, "was what we got back");
                 } else {
                     url = this.getRandomBackgroundURL();
                 }
@@ -39,7 +36,6 @@ export class Backgrounder {
         });
 
         this.randomBgBtn.addEventListener("click", () => {
-            console.log("click random bg")
             this.setRandomBg();
         });
 
@@ -119,7 +115,6 @@ export class Backgrounder {
         await this.apiKeyChecker();
 
         if (userInput === null || this.apiKey === false) {
-            console.log("no input, lets get something random")
             const url = this.getRandomBackgroundURL();
             return url;
 
@@ -128,8 +123,6 @@ export class Backgrounder {
                 let key = localStorage.getItem("apiKeyValue");
                 const imgResult = await fetch(`https://pixabay.com/api/?key=${key}&q=${userInput}`);
                 const imgObj = await imgResult.json();
-
-                console.log("img obj: " + imgObj);
 
                 if (imgObj.hits.length > 0) {
                     const validHits = imgObj.hits.filter(hit => hit.largeImageURL);
