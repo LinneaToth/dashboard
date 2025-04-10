@@ -11,6 +11,7 @@ export class Linker extends Section {
         this.domBuilder();
     }
 
+    //Any stored links in localStorage? 
     checkForStoredLinks() {
         let storedLinks = localStorage.getItem("links");
         let parsedStoredLinks = JSON.parse(storedLinks) || [];
@@ -22,10 +23,12 @@ export class Linker extends Section {
         }
     }
 
+    //Stores links in localStorage
     saveLinksToLocalStorage() {
         localStorage.setItem("links", JSON.stringify(this.links));
     }
 
+    //Uses google to get favicons for the links
     getFaviconURL(domain) {
         if (domain != "URL missing") {
             if (domain.lastIndexOf("https://") != -1) {
@@ -44,8 +47,8 @@ export class Linker extends Section {
         }
     }
 
+    //Stores links in the instance array and in localStorage, unless the upper limit is exceeded 
     addLink(linkNameInput = "No name", linkUrlInput = "URL missing") {
-
         if (this.links.length < 5) {
             const favIconURL = this.getFaviconURL(linkUrlInput);
             if (linkUrlInput.search("http://") === -1) {
@@ -58,6 +61,7 @@ export class Linker extends Section {
         }
     }
 
+    //builds an article (DOM-element) with content for each link 
     linkCardBuilder(linkObj, index) {
         const article = this.buildElement("article");
         const favicon = this.buildElement("img", null, null, "favicon");
@@ -79,6 +83,7 @@ export class Linker extends Section {
         return article;
     }
 
+    //Puts the page together
     domBuilder() {
         this.container.innerHTML = "";
         const heading = this.buildElement("h2", "Quick Links");
@@ -89,6 +94,7 @@ export class Linker extends Section {
             this.container.append(card);
         }
 
+        //All of this is for adding new links
         const addLinkBtn = this.buildElement("button", "Add Link", "add-link-btn");
         const linkIcon = this.buildElement("i", null, null, ["fa-solid", "fa-link"]);
         addLinkBtn.prepend(linkIcon);

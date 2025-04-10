@@ -5,11 +5,12 @@ export class DateTime {
         this.timer();
     }
 
+    //using recursion to update the time every second, to ensure the actual time is on display
     timer() {
         const dateElement = document.querySelector("#date");
         const timeElement = document.querySelector("#time");
 
-        let date = new Date().toLocaleDateString("sv-SE");
+        let date = new Date().toLocaleDateString("sv-SE"); //Formatting the date in a way familiar to Swedes
         let time = new Date().toTimeString();
         time = time.slice(0, time.lastIndexOf(":"));
 

@@ -11,10 +11,11 @@ export class RandomFactDeliverer extends Section {
 
     async init(url) { //Separate init func since constructor can't be async
         this.url = url;
-        await this.randomFactAdder();
+        await this.randomFactAdder(); //Makes sure there is a cat fact on display to begin with
         this.changeBtn.addEventListener("click", this.randomFactAdder.bind(this)) //Binding the listener to the object context
     }
 
+    //Using the data fetcher from parent class to get new random fact
     async getRandomFact() {
         try {
             let newFactNeeded = true;
@@ -30,6 +31,7 @@ export class RandomFactDeliverer extends Section {
         }
     }
 
+    //add fact to page
     async randomFactAdder() {
         await this.getRandomFact();
         this.factText.innerText = this.randomObj.fact;

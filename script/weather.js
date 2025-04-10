@@ -44,9 +44,9 @@ export class WeatherMaker extends Section {
         this.weatherContainer = document.getElementById("weather");
     }
 
-    init(url) {
+    async init(url) {
         this.url = url;
-        this.weatherDOM();
+        await this.weatherDOM();
     }
 
     getWeekday(displacement) {
@@ -75,6 +75,7 @@ export class WeatherMaker extends Section {
         })
     }
 
+    //Gets weather from open-meteo
     async getWeather() {
         if (this.currentLocation === true) {
             const coordinates = await this.getCurrentLocation();
@@ -85,6 +86,7 @@ export class WeatherMaker extends Section {
         return weatherData;
     }
 
+    //Putting elements together and adding them to the page
     async weatherDOM() {
         this.weatherContainer.innerHTML = "";
         let weatherHeader = ("Weather " + (this.currentLocation ? "here" : "in " + this.otherLocation));
@@ -93,7 +95,7 @@ export class WeatherMaker extends Section {
 
         const weatherData = await this.getWeather();
 
-        for (let i = 0; i < 3; i++) { //We only need three days. 
+        for (let i = 0; i < 3; i++) { //For earch day. We only need three. 
             const weatherCode = weatherData.daily.weather_code[i];
             const tempMax = this.buildElement("p", "Max " + Math.ceil(weatherData.daily.temperature_2m_max[i]) + "°C", null, "tempmax");
             const article = this.buildElement("article", null, `w${i}`);
@@ -117,6 +119,7 @@ export class WeatherMaker extends Section {
             this.weatherContainer.appendChild(article);
         }
 
+        //For setting the location
         this.locationBtn = this.buildElement("button", "Location", "open-location-options-btn");
         const locationIcon = this.buildElement("i", null, null, ["fa-solid", "fa-location-dot"]);
         this.locationBtn.prepend(locationIcon);
@@ -150,6 +153,7 @@ export class WeatherMaker extends Section {
         this.weatherContainer.append(this.locationBtn, this.locationContainer);
     }
 
+    //Getting search results from user's input. 
     async changeLocation(input) {
         if (input) {
             this.otherLocation = input;
@@ -171,12 +175,14 @@ export class WeatherMaker extends Section {
             this.newLocationInput.classList.toggle("hidden");
             this.changeLocationBtn.classList.toggle("hidden");
 
+            //Adding results to select element, as options
             for (let location of searchResult) {
                 const option = this.buildElement("option", `${location.name}, ${location.country}`);
                 option.value = location.id;
                 select.appendChild(option);
             }
 
+            //When one search result is selected, weather forecast is fetched for chosen location
             select.addEventListener("change", () => {
                 let id = select.value;
                 let chosenLocation = searchResult.find((element) => Number(element.id) === Number(id));

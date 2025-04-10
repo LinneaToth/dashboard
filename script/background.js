@@ -13,9 +13,16 @@ export class Backgrounder {
 
     //since the constructor cannot be async, I need a separate function to initialize the instance
     async init() {
-        await this.apiKeyChecker();
-        this.getCurrentWindowDim();
-        this.setRandomBg();
+        await this.apiKeyChecker(); //Is there an api key? Is it valid? 
+        this.getCurrentWindowDim(); //Gets width and height from current window 
+        this.setRandomBg(); //Sets a random bg to start with
+
+        //If the key button is clicked, it will try to store an api key from the user's input
+        this.keyBtn.addEventListener("click", () => {
+            this.apiKeySet();
+        });
+
+        //Searches for user's input. If there is no input, it will just get a random one.
         this.searchBtn.addEventListener("click", async () => {
             try {
                 const input = this.search.value;
@@ -35,14 +42,11 @@ export class Backgrounder {
             }
         });
 
+        //Get a random bg. Doesn't require a key.
         this.randomBgBtn.addEventListener("click", () => {
             this.setRandomBg();
         });
 
-        this.keyBtn.addEventListener("click", () => {
-            this.apiKeySet();
-
-        });
     }
 
     setRandomBg() {
@@ -114,6 +118,7 @@ export class Backgrounder {
     async getBackgroundURL(userInput = null) {
         await this.apiKeyChecker();
 
+        //If the function is called without input or if there is no valid key, user will still get a random bg. 
         if (userInput === null || this.apiKey === false) {
             const url = this.getRandomBackgroundURL();
             return url;
@@ -130,13 +135,15 @@ export class Backgrounder {
                     if (validHits.length === 0) {
                         console.log("no valid hits with large image found");
                         return this.getRandomBackgroundURL();
+                        //If there are no search hits, user will still get a random bg. 
                     }
                     const randomIndex = Math.floor(Math.random() * validHits.length);
                     const imgUrl = validHits[randomIndex].largeImageURL;
                     return imgUrl;
+
                 } else {
                     alert(`No search hits for "${userInput}"`);
-                    const url = await this.getRandomBackgroundURL();
+                    const url = this.getRandomBackgroundURL();
                     this.search.value = "";
                     return url;
                 }
